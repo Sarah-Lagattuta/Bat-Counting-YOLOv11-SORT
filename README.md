@@ -1,6 +1,14 @@
 # Lagattuta_YOLOv11_SORT
 
-A bat detection and tracking algorithm using YOLOv11 and DeepSORT to count bats in greyscale thermal video. This document describes the workflow to run one of the YOLOv11n models trained with data from the NSF Center for Pandemic Insights.
+A bat detection and tracking algorithm using YOLOv11 and DeepSORT to count bats in greyscale thermal video.
+
+This document describes the workflow to run one of the YOLOv11n models trained with data from the NSF Center for Pandemic Insights. For the purposes of this workflow, the model will be referred to as **ModelX**, as there are several models with differing training data subsets that this workflow can be used for.
+
+---
+
+## Edits Before Running
+
+You **must update** some files before running: search for `EDIT THIS` in this README and repo code files.
 
 ---
 
@@ -85,10 +93,10 @@ Add one row per video.
 #!/usr/bin/env bash
 set -euo pipefail
 
-PRJ= # project directory /Lagattuta_YOLOv11_SORT
+PRJ=/path/to/Lagattuta_YOLOv11_SORT   # ← EDIT THIS (project root)
 
-MODELS=(ALL_noaug)
-VARIANTS=("BGon_ROIon")
+MODELS=(ALL_noaug)                   # ← EDIT THIS [OPTIONAL]: add more models if needed
+VARIANTS=("BGon_ROIon")              # ← EDIT THIS [OPTIONAL]: add variants if testing
 
 COUNTS_DIR="$PRJ/results/counts"
 ANN_DIR="$PRJ/results/annotations"
@@ -186,9 +194,11 @@ bash make_configs.sh
 #SBATCH --gres=gpu:1
 #SBATCH -t 10:00:00
 #SBATCH -J bats-track-array
+
+#SBATCH --array=0-1079   # ← EDIT THIS: match number of generated configs
+
 #SBATCH -o /quobyte/ckreudergrp/slaga/bats_thermal/results/v7_logs/track.%A_%a.out
 #SBATCH -e /quobyte/ckreudergrp/slaga/bats_thermal/results/v7_logs/track.%A_%a.err
-#SBATCH --array=0-1079
 
 set -euo pipefail
 
@@ -198,9 +208,9 @@ export PYTHONPATH=""
 source /home/gjospin/.bashrc
 conda activate /quobyte/ckreudergrp/gjospin/envs/bats-farm-gpu-py39
 
-cd /quobyte/ckreudergrp/gjospin/2025_lagattuta_bats-farm-gpu
+cd /quobyte/ckreudergrp/gjospin/2025_lagattuta_bats-farm-gpu   # ← EDIT THIS if different
 
-CFG_DIR=  # /Lagattuta_YOLOv11_SORT/configs/generated
+CFG_DIR=/path/to/Lagattuta_YOLOv11_SORT/configs/generated      # ← EDIT THIS
 
 TOTAL=$(ls "$CFG_DIR"/*.yaml 2>/dev/null | wc -l)
 
@@ -220,7 +230,7 @@ CFG=$(ls "$CFG_DIR"/*.yaml | sed -n "$((SLURM_ARRAY_TASK_ID+1))p")
 1. Install dependencies (`pixi install`)
 2. Add videos
 3. Edit `videos.list`
-4. Configure `make_configs.sh`
+4. Update required fields (`EDIT THIS`)
 5. Run config generation
 6. Submit SLURM array job
 

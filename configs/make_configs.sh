@@ -1,14 +1,15 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-PRJ="/quobyte/ckreudergrp/slaga/bats_thermal"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PRJ="$(cd "$SCRIPT_DIR/.." && pwd)"
 
-MODELS=(PB_noaug_grey PB_aug_grey CPO_noaug_grey CPO_aug_grey ALL_noaug_grey ALL_aug_grey)
-VARIANTS=("BGon_ROIon" "BGon_ROIoff" "BGoff_ROIon" "BGoff_ROIoff")
+MODELS=(ALL_noaug)
+VARIANTS=("BGon_ROIon")
 
-COUNTS_DIR="$PRJ/results/grey_counts"
-ANN_DIR="$PRJ/results/grey_annotations"
-CFG_DIR="$PRJ/configs/grey_generated"
+COUNTS_DIR="$PRJ/results/counts"
+ANN_DIR="$PRJ/results/annotations"
+CFG_DIR="$PRJ/configs/generated"
 
 mkdir -p "$COUNTS_DIR" "$ANN_DIR" "$CFG_DIR"
 rm -f "$CFG_DIR"/*.yaml
@@ -23,7 +24,7 @@ while IFS='|' read -r site file coords; do
       safe=$(echo "${m}_${site}_${file}_${v}" | tr '[]() ' '____')
       cfg="$CFG_DIR/${safe}.yaml"
 
-      model_file="$PRJ/roboflow_models_grey/models_grey/$m/weights/best.pt"
+      model_file="$PRJ/models/$m/weights/best.pt"
       csv="$COUNTS_DIR/${safe}.csv"
       ann="$ANN_DIR/${safe}"
 

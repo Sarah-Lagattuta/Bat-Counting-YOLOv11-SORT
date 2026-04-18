@@ -9,7 +9,7 @@ version = "0.1.0"
 [tasks]
 
 [system-requirements]
-cuda = "12.4"
+cuda = "12.6"
 
 [dependencies]
 cuda = ">=12.6.2,<13"
@@ -24,6 +24,11 @@ ipdb = ">=0.13.13,<0.14"
 ruff = ">=0.9.6,<0.10"
 pandas = ">=2.2.3,<3"
 ipython = ">=8.32.0,<9"
+numpy = ">=1.26,<2"
+scipy = ">=1.11,<2"
+ffmpeg = "*"
+matplotlib = ">=3.8,<4"
+lap = "*"
 
 [pypi-dependencies]
 megadetector = ">=5.0.25, <6"
