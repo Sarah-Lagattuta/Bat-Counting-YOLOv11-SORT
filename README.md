@@ -4,6 +4,10 @@ A bat detection and tracking algorithm using YOLOv11 and DeepSORT to count bats 
 
 This document describes the workflow to run one of the YOLOv11n models trained with data from the NSF Center for Pandemic Insights. For the purposes of this workflow, the model will be referred to as **ModelX**, as there are several models with differing training data subsets that this workflow can be used for.
 
+## Notes
+
+This workflow was originally developed for HPC use (SLURM), but has been adapted to run locally. You can run everything locally using Pixi but A SLURM batch script (`configs/track_array.sh`) is included if you want to use HPC.
+
 ---
 
 ## Edits Before Running
@@ -19,7 +23,12 @@ Lagattuta_YOLOv11_SORT/
 ├── src/
 │   ├── tracking.py              # tracks bats with SORT
 │   ├── detection.py             # detects bats with YOLOv11
-│   └── bg_subtract_new.py       # subtracts background elements
+│   ├── bg_subtract_new.py       # subtracts background elements
+│   └── utils/
+│       └── get_args.py          # loads and parses YAML config files
+│
+├── sort/
+│   └── sort.py                  # SORT tracking algorithm implementation
 │
 ├── configs/
 │   ├── make_configs.sh          # generates yaml configs for model runs
@@ -38,8 +47,8 @@ Lagattuta_YOLOv11_SORT/
 │   ├── counts/                  # output CSV counts
 │   └── annotations/             # annotated videos
 │
-├── pixi.toml
-├── pixi.lock
+├── pixi.toml                    # environment + dependencies
+├── pixi.lock                    # locked dependency versions
 └── README.md
 ```
 
@@ -93,10 +102,12 @@ Add one row per video.
 #!/usr/bin/env bash
 set -euo pipefail
 
-PRJ=/path/to/Lagattuta_YOLOv11_SORT   # ← EDIT THIS (project root)
+# automatically resolve repo root
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PRJ="$(cd "$SCRIPT_DIR/.." && pwd)"
 
-MODELS=(ALL_noaug)                   # ← EDIT THIS [OPTIONAL]: add more models if needed
-VARIANTS=("BGon_ROIon")              # ← EDIT THIS [OPTIONAL]: add variants if testing
+MODELS=(ALL_noaug)                   # ← EDIT THIS [OPTIONAL]: change if using other models
+VARIANTS=("BGon_ROIon")              # ← EDIT THIS [OPTIONAL]: change if testing variants
 
 COUNTS_DIR="$PRJ/results/counts"
 ANN_DIR="$PRJ/results/annotations"
@@ -127,7 +138,7 @@ while IFS='|' read -r site file coords; do
 
       {
         echo "tracking:"
-        echo "  detection_confidence: 0.15"
+        echo "  detection_confidence: 0.18"
         echo "  model_file: \"$model_file\""
         echo "  results_path: \"$csv\""
         echo "  imgsz: 1280"
@@ -135,7 +146,7 @@ while IFS='|' read -r site file coords; do
         echo "  sort:"
         echo "    iou_threshold: 0.20"
         echo "    max_age: 30"
-        echo "    min_hits: 4"
+        echo "    min_hits: 3"
 
         echo "  video_files:"
         echo "  - amplification: 1.0"
@@ -155,7 +166,6 @@ while IFS='|' read -r site file coords; do
         echo "  write_annotated_frames: \"$ann\""
 
         echo "background_subtraction:"
-
         if $bg_flag; then
           echo "  enabled: true"
           echo "  window_size: 30"
@@ -169,7 +179,7 @@ while IFS='|' read -r site file coords; do
   done
 done < "$PRJ/configs/videos.list"
 
-echo "Generated $(ls -1 $CFG_DIR/*.yaml | wc -l) configs."
+echo "Generated $(ls -1 "$CFG_DIR"/*.yaml 2>/dev/null | wc -l) configs."
 ```
 
 ---
@@ -184,7 +194,7 @@ bash make_configs.sh
 
 ## 5) Edit `track_array.sh`
 
-```bash
+```bash id="u3qv8l"
 #!/usr/bin/env bash
 
 #SBATCH -p low
@@ -194,23 +204,19 @@ bash make_configs.sh
 #SBATCH --gres=gpu:1
 #SBATCH -t 10:00:00
 #SBATCH -J bats-track-array
+#SBATCH -o logs/track.%A_%a.out
+#SBATCH -e logs/track.%A_%a.err
 
-#SBATCH --array=0-1079   # ← EDIT THIS: match number of generated configs
-
-#SBATCH -o /quobyte/ckreudergrp/slaga/bats_thermal/results/v7_logs/track.%A_%a.out
-#SBATCH -e /quobyte/ckreudergrp/slaga/bats_thermal/results/v7_logs/track.%A_%a.err
+#SBATCH --array=0-99   # ← EDIT THIS: match number of generated configs
 
 set -euo pipefail
 
-module load conda
-export PYTHONPATH=""
+# automatically resolve repo root
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PRJ="$(cd "$SCRIPT_DIR/.." && pwd)"
+CFG_DIR="$PRJ/configs/generated"      # ← EDIT THIS [OPTIONAL]: change if using different config directory
 
-source /home/gjospin/.bashrc
-conda activate /quobyte/ckreudergrp/gjospin/envs/bats-farm-gpu-py39
-
-cd /quobyte/ckreudergrp/gjospin/2025_lagattuta_bats-farm-gpu   # ← EDIT THIS if different
-
-CFG_DIR=/path/to/Lagattuta_YOLOv11_SORT/configs/generated      # ← EDIT THIS
+mkdir -p "$PRJ/logs"
 
 TOTAL=$(ls "$CFG_DIR"/*.yaml 2>/dev/null | wc -l)
 
@@ -220,7 +226,8 @@ fi
 
 CFG=$(ls "$CFG_DIR"/*.yaml | sed -n "$((SLURM_ARRAY_TASK_ID+1))p")
 
-/home/slaga/.pixi/bin/pixi run python -m src.tracking --config "$CFG"
+cd "$PRJ"
+pixi run python -m src.tracking --config "$CFG"
 ```
 
 ---
