@@ -2,17 +2,13 @@
 
 A bat detection and tracking algorithm using YOLOv11 and DeepSORT to count bats in greyscale thermal video.
 
-This document describes the workflow to run one of the YOLOv11n models trained with data from the NSF Center for Pandemic Insights. For the purposes of this workflow, the model will be referred to as **ModelX**, as there are several models with differing training data subsets that this workflow can be used for.
-
-## Notes
-
-This workflow was originally developed for HPC use (SLURM), but has been adapted to run locally. You can run everything locally using Pixi but A SLURM batch script (`configs/track_array.sh`) is included if you want to use HPC.
+This document describes the workflow to run one of the YOLOv11n models trained with data from the NSF Center for Pandemic Insights. This workflow was originally developed for HPC use (SLURM). You can run everything locally using Pixi but A SLURM batch script (`configs/track_array.sh`) is included if you want to use HPC.
 
 ---
 
 ## Edits Before Running
 
-You **must update** some files before running: search for `EDIT THIS` in this README and repo code files.
+Before running, update the flagged files: search for `EDIT THIS` in this README and repo code files.
 
 ---
 
@@ -138,7 +134,7 @@ while IFS='|' read -r site file coords; do
 
       {
         echo "tracking:"
-        echo "  detection_confidence: 0.18"
+        echo "  detection_confidence: 0.15"
         echo "  model_file: \"$model_file\""
         echo "  results_path: \"$csv\""
         echo "  imgsz: 1280"
@@ -146,7 +142,7 @@ while IFS='|' read -r site file coords; do
         echo "  sort:"
         echo "    iou_threshold: 0.20"
         echo "    max_age: 30"
-        echo "    min_hits: 3"
+        echo "    min_hits: 4"
 
         echo "  video_files:"
         echo "  - amplification: 1.0"
