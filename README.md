@@ -1,3 +1,6 @@
+<img width="500" height="375" alt="image" src="https://github.com/user-attachments/assets/b4139bc0-c2cd-45f3-8279-04c5bfcfff81" />
+
+
 # Lagattuta_YOLOv11_SORT
 
 A bat detection and tracking algorithm using YOLOv11 and SORT to count bats in greyscale thermal video.
