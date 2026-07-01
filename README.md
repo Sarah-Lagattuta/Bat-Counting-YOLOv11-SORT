@@ -1,5 +1,6 @@
-<img width="500" height="375" alt="image" src="https://github.com/user-attachments/assets/b4139bc0-c2cd-45f3-8279-04c5bfcfff81" />
+<img width="960" height="686" alt="image" src="https://github.com/user-attachments/assets/fb2843a3-4b14-4789-a6f4-ca8ac8446569" />
 
+https://github.com/user-attachments/assets/c4963849-7659-4403-8345-f83d31eafe06
 
 # Lagattuta_YOLOv11_SORT
 
