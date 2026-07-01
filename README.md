@@ -2,11 +2,13 @@
 <img width="197.5" height="205.8" alt="Screenshot 2026-07-01 at 4 38 13 PM" src="https://github.com/user-attachments/assets/ac18267c-f295-4cb1-862d-f1ea89ad29a5" />
 
 
-# Lagattuta_YOLOv11_SORT
+# Bat Counting with YOLOv11-SORT
 
-A bat detection and tracking algorithm using YOLOv11 and SORT to count bats in greyscale thermal video.
+This project uses a specialized machine learning model to track and count flying bats in thermal video. The model pipeline uses YOLOv11, an image detection deep learning model, and SORT (simple online and realtime tracking), a multi-object tracking algorithm to recognize and track bat flight trajectories. Each unique trajectory recognized by the model in a given video is counted as one bat.
 
-This document describes the workflow to run one of the YOLOv11n models trained with data from the NSF Center for Pandemic Insights. This workflow was originally developed for HPC use (SLURM). You can run everything locally using Pixi but A SLURM batch script (`configs/track_array.sh`) is included if you want to use HPC.
+Bat population counts are used widely for conservation management and wildlife disease research. Bringing bat counting models into edge computing will allow for near-real-time surveillance of population dynamics for a wide range of bat species in diverse environments.
+
+This document describes the workflow to run one of the YOLOv11s models trained with data from the NSF Center for Pandemic Insights. This workflow was originally developed for HPC use (SLURM). You can run everything locally using Pixi but A SLURM batch script (`configs/track_array.sh`) is included if you want to use HPC.
 
 ---
 
