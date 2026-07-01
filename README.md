@@ -1,6 +1,5 @@
-<img width="960" height="686" alt="image" src="https://github.com/user-attachments/assets/fb2843a3-4b14-4789-a6f4-ca8ac8446569" />
+<img width="480" height="343" alt="image" src="https://github.com/user-attachments/assets/fb2843a3-4b14-4789-a6f4-ca8ac8446569" /> <img width="514.5" height="343" alt="image" src="https://github.com/user-attachments/assets/ef0f0ea3-fb66-43b3-9b2a-d650d7e0e9fb" />
 
-https://github.com/user-attachments/assets/c4963849-7659-4403-8345-f83d31eafe06
 
 # Lagattuta_YOLOv11_SORT
 
@@ -53,6 +52,7 @@ Lagattuta_YOLOv11_SORT/
 ```
 
 ---
+https://github.com/user-attachments/assets/c4963849-7659-4403-8345-f83d31eafe06
 
 ## 1) Environment Setup
 
