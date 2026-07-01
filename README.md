@@ -55,7 +55,6 @@ Lagattuta_YOLOv11_SORT/
 ```
 
 ---
-https://github.com/user-attachments/assets/c4963849-7659-4403-8345-f83d31eafe06
 
 ## 1) Environment Setup
 
