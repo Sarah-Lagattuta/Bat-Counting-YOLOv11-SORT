@@ -1,6 +1,6 @@
 # Lagattuta_YOLOv11_SORT
 
-A bat detection and tracking algorithm using YOLOv11 and DeepSORT to count bats in greyscale thermal video.
+A bat detection and tracking algorithm using YOLOv11 and SORT to count bats in greyscale thermal video.
 
 This document describes the workflow to run one of the YOLOv11n models trained with data from the NSF Center for Pandemic Insights. This workflow was originally developed for HPC use (SLURM). You can run everything locally using Pixi but A SLURM batch script (`configs/track_array.sh`) is included if you want to use HPC.
 
