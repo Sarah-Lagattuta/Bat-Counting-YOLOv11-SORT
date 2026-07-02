@@ -4,7 +4,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PRJ="$(cd "$SCRIPT_DIR/.." && pwd)"
 
-MODELS=(ALL_noaug)
+MODELS=(PB_noaug)
 VARIANTS=("BGon_ROIon")
 
 COUNTS_DIR="$PRJ/results/counts"
@@ -36,14 +36,14 @@ while IFS='|' read -r site file coords; do
 
       {
         echo "tracking:"
-        echo "  detection_confidence: 0.15"
+        echo "  detection_confidence: 0.10"
         echo "  model_file: \"$model_file\""
         echo "  results_path: \"$csv\""
         echo "  imgsz: 1280"
         echo "  sort:"
-        echo "    iou_threshold: 0.20"
+        echo "    iou_threshold: 0.10"
         echo "    max_age: 30"
-        echo "    min_hits: 4"
+        echo "    min_hits: 5"
         echo "  video_files:"
         echo "  - amplification: 1.0"
         echo "    path: \"$PRJ/videos/$file\""
