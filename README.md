@@ -14,7 +14,7 @@ The goal of this challenge is to adapt an existing thermal-video bat detection a
 
 # Sample Videos and Counts
 
-To see how this model works, please view the example videos with annotations from running the bat counting model in (`examples/sample_annotations/`). To guide your work in adapting these models to edge computing, we've provided sample, untracked videos in (`videos/`) as well as their associated counts from the PB_noaug model in (`examples/sample_counts`).
+To see how this model works, please view the example videos with annotations from running the bat counting model in (`examples/sample_annotations/`). To guide your work in adapting these models to edge computing, we've provided sample, untracked videos in (`videos/`) as well as their associated counts from the PB_noaug model in (`examples/sample_counts.csv`).
 
 # Introduction to the Existing Pipeline
 
