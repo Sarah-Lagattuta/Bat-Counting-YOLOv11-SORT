@@ -20,6 +20,8 @@ To see how this model works, please view the example videos with annotations fro
 
 This document describes the workflow to run one of the YOLO11 models (trained with data from the NSF Center for Pandemic Insights) and track and count bats with SORT. This workflow is presently developed for being run with an HPC (High Performance Cluster), but can also be locally run using Pixi. 
 
+The eventual goal for this project would be to have an edge computing device run the model automatically with the user only needed to define a region of interest bounding box (as seen in configs/videos.list) for a specific filming location. The device would collect nightly population data from the thermal camera and transmit bat count data rather than researchers having to collect video data, download, and process it for each deployment.
+
 ---
 
 ## Edits Before Running
