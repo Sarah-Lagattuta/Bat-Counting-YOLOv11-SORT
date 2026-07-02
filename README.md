@@ -8,7 +8,13 @@ This project uses a specialized machine learning model to track and count flying
 
 Bat population counts are used widely for conservation management and wildlife disease research. Bringing bat counting models into edge computing will allow for near-real-time surveillance of population dynamics for a wide range of bat species in diverse environments.
 
-This document describes the workflow to run one of the YOLOv11s models trained with data from the NSF Center for Pandemic Insights. This workflow was originally developed for HPC use (SLURM). You can run everything locally using Pixi but A SLURM batch script (`configs/track_array.sh`) is included if you want to use HPC.
+# Edge Computing Challenge
+
+The goal of this challenge is to adapt an existing thermal-video bat detection and tracking pipeline for edge computing. You will work with our pretrained YOLO weights, sample thermal videos from real deployments, and our existing tracking/counting pipeline, then optimize the workflow for faster, lighter-weight deployment on constrained hardware.
+
+# Introduction to the Existing Pipeline
+
+This document describes the workflow to run one of the YOLOv11 models (trained with data from the NSF Center for Pandemic Insights) and track and count bats with SORT. This workflow was originally developed for HPC (High Performance Cluster) use (SLURM). You can run everything locally using Pixi, but A SLURM batch script (`configs/track_array.sh`) is included if you want to use HPC.
 
 ---
 
