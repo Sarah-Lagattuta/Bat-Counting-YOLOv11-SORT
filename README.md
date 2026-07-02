@@ -22,9 +22,7 @@ To see how this model works, please view the example videos with annotations fro
 
 This document describes the workflow to run one of the YOLO11 models (trained with data from the NSF Center for Pandemic Insights) and track and count bats with SORT. This workflow is presently developed for being run with an HPC (High Performance Cluster), but can also be locally run using Pixi. 
 
----
-
-## Edits Before Running
+### Edits Before Running
 
 Before running, update the flagged files: search for `EDIT THIS` in this README and repo code files.
 
