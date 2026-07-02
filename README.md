@@ -18,7 +18,7 @@ To see how this model works, please view the example videos with annotations fro
 
 # Introduction to the Existing Pipeline
 
-This document describes the workflow to run one of the YOLO11 models (trained with data from the NSF Center for Pandemic Insights) and track and count bats with SORT. This workflow was originally developed for HPC (High Performance Cluster) use (SLURM). You can run everything locally using Pixi, but A SLURM batch script (`configs/track_array.sh`) is included if you want to use HPC.
+This document describes the workflow to run one of the YOLO11 models (trained with data from the NSF Center for Pandemic Insights) and track and count bats with SORT. This workflow is presently developed for being run with an HPC (High Performance Cluster), but can also be locally run using Pixi. 
 
 ---
 
@@ -44,7 +44,7 @@ Bat-Counting-YOLOv11-SORT/
 │
 ├── configs/
 │   ├── make_configs.sh          # generates yaml configs for model runs
-│   ├── track_array.sh           # runs model on generated configs
+│   ├── track_array.sh           # runs model on generated yaml configs
 │   ├── videos.list              # defines videos + ROIs
 │   └── generated/               # generated yaml configs
 │
