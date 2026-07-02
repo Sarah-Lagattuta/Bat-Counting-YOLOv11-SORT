@@ -4,7 +4,7 @@
 
 # Bat Counting with YOLOv11-SORT
 
-This project uses a specialized machine learning model to track and count flying bats in thermal video. The model pipeline uses YOLOv11, an image detection deep learning model, and SORT (simple online and realtime tracking), a multi-object tracking algorithm to recognize and track bat flight trajectories. Each unique trajectory recognized by the model in a given video is counted as one bat.
+This project uses a specialized machine learning model to track and count flying bats in thermal video. The model pipeline uses YOLO11 (You Only Look Once), an image detection deep learning model, and SORT (Simple Online and Realtime Tracking), a multi-object tracking algorithm, to recognize and track bat flight trajectories. Each unique trajectory recognized by the model in a given video is counted as one bat.
 
 Bat population counts are used widely for conservation management and wildlife disease research. Bringing bat counting models into edge computing will allow for near-real-time surveillance of population dynamics for a wide range of bat species in diverse environments.
 
@@ -14,7 +14,7 @@ The goal of this challenge is to adapt an existing thermal-video bat detection a
 
 # Introduction to the Existing Pipeline
 
-This document describes the workflow to run one of the YOLOv11 models (trained with data from the NSF Center for Pandemic Insights) and track and count bats with SORT. This workflow was originally developed for HPC (High Performance Cluster) use (SLURM). You can run everything locally using Pixi, but A SLURM batch script (`configs/track_array.sh`) is included if you want to use HPC.
+This document describes the workflow to run one of the YOLO11 models (trained with data from the NSF Center for Pandemic Insights) and track and count bats with SORT. This workflow was originally developed for HPC (High Performance Cluster) use (SLURM). You can run everything locally using Pixi, but A SLURM batch script (`configs/track_array.sh`) is included if you want to use HPC.
 
 ---
 
