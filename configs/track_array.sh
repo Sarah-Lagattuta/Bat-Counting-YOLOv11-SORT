@@ -8,7 +8,7 @@
 #SBATCH -J bats-track-array
 #SBATCH -o logs/track.%A_%a.out
 #SBATCH -e logs/track.%A_%a.err
-#SBATCH --array=0-99   # ← EDIT THIS to match number of generated configs
+#SBATCH --array=0-2
 
 set -euo pipefail
 
