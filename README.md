@@ -16,6 +16,10 @@ The goal of this challenge is to adapt an existing thermal-video bat detection a
 
 This document describes the workflow to run one of the YOLO11 models (trained with data from the NSF Center for Pandemic Insights) and track and count bats with SORT. This workflow was originally developed for HPC (High Performance Cluster) use (SLURM). You can run everything locally using Pixi, but A SLURM batch script (`configs/track_array.sh`) is included if you want to use HPC.
 
+# Sample Videos and Counts
+
+Please also see the sample videos that we have provided in ('examples/sample_videos/') as well as their associated counts from the PB_noaug model in ('examples/sample_counts'). This information can be used to check that the model is running properly. Example videos with annotations from the model results can be found in ('examples/sample_annotations/').
+
 ---
 
 ## Edits Before Running
@@ -27,7 +31,7 @@ Before running, update the flagged files: search for `EDIT THIS` in this README 
 ## Project Structure
 
 ```
-Lagattuta_YOLOv11_SORT/
+Bat-Counting-YOLOv11-SORT/
 ├── src/
 │   ├── tracking.py              # tracks bats with SORT
 │   ├── detection.py             # detects bats with YOLOv11
@@ -45,7 +49,7 @@ Lagattuta_YOLOv11_SORT/
 │   └── generated/               # generated yaml configs
 │
 ├── models/
-│   └── ALL_noaug/
+│   └── PB_noaug/
 │       └── weights/
 │           └── best.pt          # model weights
 │
